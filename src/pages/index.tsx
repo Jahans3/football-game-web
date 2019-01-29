@@ -142,6 +142,7 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
                   {/*config.title*/}
                 {/*)}*/}
               </SiteTitle>
+              <SiteDescription>(Beta)</SiteDescription>
               <SiteDescription>{config.description}</SiteDescription>
             </SiteHeaderContent>
             <SiteNav isHome={true} />

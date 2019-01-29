@@ -8,8 +8,10 @@ import { css } from '@emotion/core';
 
 import { colors } from '../styles/colors';
 import { PageContext } from '../templates/post';
+// import set = Reflect.set;
 
 const PostCardStyles = css`
+  font-family: system-ui;
   flex: 1 1 300px;
   display: flex;
   flex-direction: column;
@@ -26,6 +28,38 @@ const PostCardStyles = css`
     box-shadow: rgba(39, 44, 49, 0.07) 8px 28px 50px, rgba(39, 44, 49, 0.04) 1px 6px 12px;
     transition: all 0.4s ease;
     transform: translate3D(0, -1px, 0) scale(1.02);
+  }
+  
+  button {
+    font-family: system-ui;
+    display: inline-block;
+    margin: 0 0 0 15px;
+    // padding: 0 25px;
+    height: 27px;
+    outline: none;
+    color: #444444;
+    font-size: 1.7rem;
+    // line-height: 37px;
+    font-weight: 400;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    background: linear-gradient(
+      color(var(--blue) whiteness(+7%)),
+      color(var(--blue) lightness(-7%) saturation(-10%)) 60%,
+      color(var(--blue) lightness(-7%) saturation(-10%)) 90%,
+      color(var(--blue) lightness(-4%) saturation(-10%))
+    );
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.14);
+
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+  .post-card-third {
+    max-width: 320px;
+  }
+  .g-text {
+    font-family: system-ui;
+    margin: 5px;
   }
 `;
 
@@ -196,47 +230,174 @@ export interface PostCardProps {
   post: PageContext;
 }
 
-const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
+const PostCard: React.FunctionComponent<PostCardProps> = () => {
+  const [currentName, setCurrentName] = React.useState('');
+  const [names, setNames] = React.useState([]);
+  const [error, setError] = React.useState('');
+  const [drawnNames, setDraw] = React.useState({});
+  const addCurrentName = () => {
+    if (!names.includes(currentName)) {
+      setNames(names.concat(currentName));
+      setError(false);
+    } else {
+      setError('Names must be unique!');
+    }
+  };
+  const deleteName = name => {
+    const index = names.indexOf(name);
+    const nextNames = [...names];
+    nextNames.splice(index, 1);
+    setNames(nextNames);
+  };
+  const footballMoves = [
+    'Throw In',
+    'Goal Kick',
+    'Shot',
+    'Corner Kick',
+    'Foul',
+    'Free Kick',
+    'Offside',
+    'Yellow Card',
+    'Goal',
+    'Hand Ball',
+    'Penalty',
+    'Red Card',
+    'Own Goal',
+    'Dropped Ball'
+  ];
+
+  function getRandom (number) {
+    return Math.floor(Math.random() * Math.floor(number));
+  }
+
+  function getRandomFootballMove (number) {
+    const rand = getRandom(number);
+    return footballMoves[rand];
+  }
+
+  function getNFootballMoves (players) {
+    return players.map(() => getRandomFootballMove(players.length));
+  }
+
+  function isMappedUniquely (array, originArray) {
+    return Array.from(new Set(array)).length === originArray.length;
+  }
+
+  function mapPlayersToFootballMoves (players, moves) {
+    return players.reduce((result, player, i) => ({
+      ...result,
+      [player]: moves[i]
+    }), {})
+  }
+
+  function drawNames (players = []) {
+    if (players.length < 2) {
+      throw new Error(`Requires at least 2 players, got: ${players.length}`);
+    }
+
+    if (players.length > footballMoves.length) {
+      throw new Error(`Maximum player limit reached. Max players: ${footballMoves.length}, received: ${players.length}`);
+    }
+
+    let result = getNFootballMoves(players);
+
+    while (!isMappedUniquely(result, players)) {
+      result = getNFootballMoves(players);
+    }
+
+    return mapPlayersToFootballMoves(players, result);
+  }
   return (
-    <article
-      className={`post-card no-image`}
-      css={PostCardStyles}
-    >
-      {/*{post.frontmatter.image && (*/}
-        {/*<Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>*/}
-          {/*<PostCardImage className="post-card-image">*/}
-            {/*{post.frontmatter.image &&*/}
-              {/*post.frontmatter.image.childImageSharp.fluid && (*/}
-                {/*<Img*/}
-                  {/*alt={`${post.frontmatter.title} cover image`}*/}
-                  {/*style={{ height: '100%' }}*/}
-                  {/*fluid={post.frontmatter.image.childImageSharp.fluid}*/}
-                {/*/>*/}
-              {/*)}*/}
-          {/*</PostCardImage>*/}
-        {/*</Link>*/}
-      {/*)}*/}
-      <PostCardContent className="post-card-content">
-        <div className="post-card-content-link" css={PostCardContentLink}>
-          <header className="post-card-header">
-            {/*{post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}*/}
-            <PostCardTitle>{'Wazaaaa'}</PostCardTitle>
-          </header>
-          <PostCardExcerpt>
-            <p>{'Some text boi'}</p>
-          </PostCardExcerpt>
-        </div>
-        <PostCardMeta className="post-card-meta">
-          <AuthorList>
-            <AuthorListItem>
-              <AuthorNameTooltip className="author-name-tooltip">
-                {'Your mum'}
-              </AuthorNameTooltip>
-            </AuthorListItem>
-          </AuthorList>
-        </PostCardMeta>
-      </PostCardContent>
-    </article>
+    <>
+      <article
+        className={`post-card no-image`}
+        css={PostCardStyles}
+        style={{ maxWidth: '50%' }}
+      >
+        <PostCardContent className="post-card-content post-card-third">
+          <div className="post-card-content-link" css={PostCardContentLink}>
+            <header className="post-card-header">
+              {/*{post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}*/}
+              <PostCardTitle>{'Add some names:'}</PostCardTitle>
+            </header>
+            <PostCardExcerpt>
+              {!!error && (
+                <p style={{ color: 'red' }}>
+                  {error}
+                </p>
+              )}
+              <input
+                disabled={names.length >= 14}
+                className="g-text"
+                type="text"
+                onChange={({ target: { value } }) => setCurrentName(value)}
+                value={currentName}
+                onKeyPress={({ key }) => {
+                  if (key === 'Enter') {
+                    addCurrentName();
+                    setCurrentName('');
+                  }
+                }}
+              />
+              <button onClick={addCurrentName}>
+                Add
+              </button>
+              {names.map((name, i) => (
+                <div className="g-text" key={name}>
+                  <span>{`${i + 1}. ${name}`}</span>
+                  <button onClick={() => deleteName(name)}>
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </PostCardExcerpt>
+          </div>
+          <PostCardMeta className="post-card-meta">
+            <AuthorList>
+              <AuthorListItem>
+                <AuthorNameTooltip className="author-name-tooltip">
+                  {'Your mum'}
+                </AuthorNameTooltip>
+              </AuthorListItem>
+            </AuthorList>
+          </PostCardMeta>
+        </PostCardContent>
+      </article>
+      <article
+        className={`post-card no-image`}
+        css={PostCardStyles}
+        style={{ maxWidth: '50%' }}
+      >
+        <PostCardContent className="post-card-content post-card-third">
+          <div className="post-card-content-link" css={PostCardContentLink}>
+            <header className="post-card-header">
+              {/*{post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}*/}
+              <PostCardTitle>
+                <button onClick={() => setDraw(drawNames(names))} style={{ margin: 0 }}>
+                  Draw names
+                </button>
+              </PostCardTitle>
+            </header>
+            <PostCardExcerpt>
+              {Object.entries(drawnNames).map(([name, move], i) => (
+                <div className="g-text">
+                  <span>{i + 1}. {name}</span> <span style={{ float: 'right' }}>{move}</span>
+                </div>
+              ))}
+            </PostCardExcerpt>
+          </div>
+          <PostCardMeta className="post-card-meta">
+            <AuthorList>
+              <AuthorListItem>
+                <AuthorNameTooltip className="author-name-tooltip">
+                  {'Your mum'}
+                </AuthorNameTooltip>
+              </AuthorListItem>
+            </AuthorList>
+          </PostCardMeta>
+        </PostCardContent>
+      </article>
+    </>
   );
 };
 
