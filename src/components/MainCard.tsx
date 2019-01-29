@@ -61,6 +61,11 @@ const PostCardStyles = css`
     font-family: system-ui;
     margin: 5px;
   }
+  .card-mob {
+    @media(min-width: 420px) {
+      max-width: 50%;
+    }
+  }
 `;
 
 const PostCardImageLink = css`
@@ -310,9 +315,8 @@ const PostCard: React.FunctionComponent<PostCardProps> = () => {
   return (
     <>
       <article
-        className={`post-card no-image`}
+        className={`post-card card-mob no-image`}
         css={PostCardStyles}
-        style={{ maxWidth: '50%' }}
       >
         <PostCardContent className="post-card-content post-card-third">
           <div className="post-card-content-link" css={PostCardContentLink}>
@@ -364,9 +368,8 @@ const PostCard: React.FunctionComponent<PostCardProps> = () => {
         </PostCardContent>
       </article>
       <article
-        className={`post-card no-image`}
+        className={`post-card card-mob no-image`}
         css={PostCardStyles}
-        style={{ maxWidth: '50%' }}
       >
         <PostCardContent className="post-card-content post-card-third">
           <div className="post-card-content-link" css={PostCardContentLink}>
