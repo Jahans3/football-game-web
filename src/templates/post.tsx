@@ -247,7 +247,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
           <meta name="twitter:image" content={config.siteUrl + post.frontmatter.image.childImageSharp.fluid.src} />
         )}
         <meta name="twitter:label1" content="Written by" />
-        <meta name="twitter:data1" content={post.frontmatter.author.id} />
+        {/*<meta name="twitter:data1" content={post.frontmatter.author.id} />*/}
         <meta name="twitter:label2" content="Filed under" />
         {post.frontmatter.tags && <meta name="twitter:data2" content={post.frontmatter.tags[0]} />}
         {config.twitter && <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[1]}`} />}
@@ -301,7 +301,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
 
               <PostFullFooter>
                 <AuthorCard author={post.frontmatter.author} />
-                <PostFullFooterRight authorId={post.frontmatter.author.id} />
+                {/*<PostFullFooterRight authorId={post.frontmatter.author.id} />*/}
               </PostFullFooter>
             </article>
           </div>
