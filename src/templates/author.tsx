@@ -113,7 +113,7 @@ interface AuthorTemplateProps {
 
 const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
-  
+
   const edges = props.data.allMarkdownRemark.edges.filter(
     (edge) => {
       const isDraft = (edge.node.frontmatter.draft !== true ||
@@ -266,15 +266,6 @@ export const pageQuery = graphql`
       website
       twitter
       bio
-      facebook
-      location
-      profile_image {
-        childImageSharp {
-          fluid(maxWidth: 3720) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
       avatar {
         childImageSharp {
           fluid(maxWidth: 200) {

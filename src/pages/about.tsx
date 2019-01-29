@@ -15,6 +15,9 @@ const PageTemplate = css`
     background: #fff;
     padding-bottom: 4vw;
   }
+  .page-text {
+    text-align: center;
+  }
 `;
 
 
@@ -26,38 +29,28 @@ const About: React.FunctionComponent = () => (
     <Wrapper css={PageTemplate}>
       <header css={[outer, SiteHeader]}>
         <div css={inner}>
-          <SiteNav />
+          <SiteNav isAbout isHome={false} />
         </div>
       </header>
       <main id="site-main" className="site-main" css={[SiteMain, outer]}>
         <article className="post page" css={[PostFull, NoImage]}>
           <PostFullHeader>
-            <PostFullTitle>About</PostFullTitle>
+            <PostFullTitle>Rules</PostFullTitle>
           </PostFullHeader>
 
           <PostFullContent className="post-full-content">
             <div className="post-content">
-              <p>
-                Ghost is professional publishing platform designed for modern journalism. This is a
-                demo site of a basic Ghost install to give you a general sense of what a new Ghost
-                site looks like when set up for the first time.
+              <p className="page-text">
+                1. Add some names
               </p>
-              <blockquote>
-                <p>
-                  If you'd like to set up a site like this for yourself, head over to{' '}
-                  <a href="https://ghost.org">Ghost.org</a> and start a free 14 day trial to give
-                  Ghost a try!
-                </p>
-              </blockquote>
-              <p>
-                If you're a developer: Ghost is a completely open source (MIT) Node.js application
-                built on a JSON API with an Ember.js admin client. It works with MySQL and SQLite,
-                and is publicly available <a href="https://github.com/TryGhost/ghost">on Github</a>.
+              <p className="page-text">
+                2. Draw names
               </p>
-              <p>
-                If you need help with using Ghost, you'll find a ton of useful articles on{' '}
-                <a href="https://help.ghost.org">our knowledgebase</a>, as well as extensive{' '}
-                <a href="https://docs.ghost.org">developer documentation</a>.
+              <p className="page-text">
+                3. Re-draw when someone drinks
+              </p>
+              <p className="page-text">
+                4. Repeat step 3 until the game ends
               </p>
             </div>
           </PostFullContent>

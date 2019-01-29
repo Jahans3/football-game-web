@@ -199,48 +199,41 @@ export interface PostCardProps {
 const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
   return (
     <article
-      className={`post-card ${!post.frontmatter.image ? 'no-image' : ''}`}
+      className={`post-card no-image`}
       css={PostCardStyles}
     >
-      {post.frontmatter.image && (
-        <Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>
-          <PostCardImage className="post-card-image">
-            {post.frontmatter.image &&
-              post.frontmatter.image.childImageSharp.fluid && (
-                <Img
-                  alt={`${post.frontmatter.title} cover image`}
-                  style={{ height: '100%' }}
-                  fluid={post.frontmatter.image.childImageSharp.fluid}
-                />
-              )}
-          </PostCardImage>
-        </Link>
-      )}
+      {/*{post.frontmatter.image && (*/}
+        {/*<Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>*/}
+          {/*<PostCardImage className="post-card-image">*/}
+            {/*{post.frontmatter.image &&*/}
+              {/*post.frontmatter.image.childImageSharp.fluid && (*/}
+                {/*<Img*/}
+                  {/*alt={`${post.frontmatter.title} cover image`}*/}
+                  {/*style={{ height: '100%' }}*/}
+                  {/*fluid={post.frontmatter.image.childImageSharp.fluid}*/}
+                {/*/>*/}
+              {/*)}*/}
+          {/*</PostCardImage>*/}
+        {/*</Link>*/}
+      {/*)}*/}
       <PostCardContent className="post-card-content">
-        <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
+        <div className="post-card-content-link" css={PostCardContentLink}>
           <header className="post-card-header">
-            {post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}
-            <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
+            {/*{post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}*/}
+            <PostCardTitle>{'Wazaaaa'}</PostCardTitle>
           </header>
           <PostCardExcerpt>
-            <p>{post.excerpt}</p>
+            <p>{'Some text boi'}</p>
           </PostCardExcerpt>
-        </Link>
+        </div>
         <PostCardMeta className="post-card-meta">
           <AuthorList>
             <AuthorListItem>
               <AuthorNameTooltip className="author-name-tooltip">
-                {/*{post.frontmatter.author.id}*/}
+                {'Your mum'}
               </AuthorNameTooltip>
-              {/*<Link css={StaticAvatar} to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>*/}
-                {/*<AuthorProfileImage*/}
-                  {/*src={post.frontmatter.author.avatar.children[0].fixed.src}*/}
-                  {/*// alt={post.frontmatter.author.id}*/}
-                {/*/>*/}
-              {/*</Link>*/}
             </AuthorListItem>
           </AuthorList>
-          <ReadingTime>{post.timeToRead} min read</ReadingTime>
         </PostCardMeta>
       </PostCardContent>
     </article>

@@ -114,6 +114,7 @@ const SubscribeButton = styled.a`
 
 interface SiteNavProps {
   isHome?: boolean;
+  isAbout?: boolean;
 }
 
 interface SiteNaveState {
@@ -134,22 +135,25 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
   };
 
   render() {
-    const { isHome = false } = this.props;
+    const { isHome = false, isAbout = false } = this.props;
     return (
       <nav css={[isHome && HomeNavRaise, SiteNavStyles]}>
         <SiteNavLeft>
-          {!isHome && <SiteNavLogo />}
           <ul css={NavStyles} role="menu">
             {/* TODO: mark current nav item - add class nav-current */}
-            <li role="menuitem">
-              <Link to="/">Home</Link>
-            </li>
-            <li role="menuitem">
-              <Link to="/about">About</Link>
-            </li>
-            <li role="menuitem">
-              <Link to="/tags/getting-started/">Getting Started</Link>
-            </li>
+            {/*<li role="menuitem">*/}
+              {/*<Link to="/">Home</Link>*/}
+            {/*</li>*/}
+            {!isHome && (
+              <li role="menuitem">
+                <Link to="/">Home</Link>
+              </li>
+            )}
+            {!isAbout && (
+              <li role="menuitem">
+                <Link to="/about">Rules</Link>
+              </li>
+            )}
           </ul>
         </SiteNavLeft>
         <SiteNavRight>
@@ -177,10 +181,10 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
               </a>
             )}
           </SocialLinks>
-          {config.showSubscribe && (
-            <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
-          )}
-          {config.showSubscribe && <SubscribeModal ref={this.subscribe} />}
+          {/*{config.showSubscribe && (*/}
+            {/*<SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>*/}
+          {/*)}*/}
+          {/*{config.showSubscribe && <SubscribeModal ref={this.subscribe} />}*/}
         </SiteNavRight>
       </nav>
     );

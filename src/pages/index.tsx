@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
 import PostCard from '../components/PostCard';
+import MainCard from '../components/MainCard';
 import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import config from '../website-config';
@@ -130,15 +131,16 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
           <div css={inner}>
             <SiteHeaderContent>
               <SiteTitle>
-                {props.data.logo ? (
-                  <img
-                    style={{ maxHeight: '45px' }}
-                    src={props.data.logo.childImageSharp.fixed.src}
-                    alt={config.title}
-                  />
-                ) : (
-                  config.title
-                )}
+                {config.title}
+                {/*{props.data.logo ? (*/}
+                  {/*<img*/}
+                    {/*style={{ maxHeight: '45px' }}*/}
+                    {/*src={props.data.logo.childImageSharp.fixed.src}*/}
+                    {/*alt={config.title}*/}
+                  {/*/>*/}
+                {/*) : (*/}
+                  {/*config.title*/}
+                {/*)}*/}
               </SiteTitle>
               <SiteDescription>{config.description}</SiteDescription>
             </SiteHeaderContent>
@@ -148,15 +150,16 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
             <div css={[PostFeed, PostFeedRaise]}>
-              {props.data.allMarkdownRemark.edges.map(post => {
-                // filter out drafts in production
-                return (
-                  (post.node.frontmatter.draft !== true ||
-                    process.env.NODE_ENV !== 'production') && (
-                    <PostCard key={post.node.fields.slug} post={post.node} />
-                  )
-                );
-              })}
+              <MainCard />
+              {/*{props.data.allMarkdownRemark.edges.map(post => {*/}
+                {/*// filter out drafts in production*/}
+                {/*return (*/}
+                  {/*(post.node.frontmatter.draft !== true ||*/}
+                    {/*process.env.NODE_ENV !== 'production') && (*/}
+                    {/*<PostCard key={post.node.fields.slug} post={post.node} />*/}
+                  {/*)*/}
+                {/*);*/}
+              {/*})}*/}
             </div>
           </div>
         </main>
