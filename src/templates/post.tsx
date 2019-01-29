@@ -300,7 +300,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
               {config.showSubscribe && <Subscribe title={config.title} />}
 
               <PostFullFooter>
-                <AuthorCard author={post.frontmatter.author} />
+                {/*<AuthorCard author={post.frontmatter.author} />*/}
                 {/*<PostFullFooterRight authorId={post.frontmatter.author.id} />*/}
               </PostFullFooter>
             </article>
