@@ -349,7 +349,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = () => {
               {names.map((name, i) => (
                 <div className="g-text" key={name}>
                   <span>{`${i + 1}. ${name}`}</span>
-                  <button onClick={() => deleteName(name)}>
+                  <button style={{ float: 'right' }} onClick={() => deleteName(name)}>
                     Delete
                   </button>
                 </div>
